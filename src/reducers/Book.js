@@ -12,13 +12,18 @@ export const book = createSlice({
   }
 })
 
-export const fetchBooks = () => {
+export const fetchBooks = (author) => {
+
+  let queryParams = '';
+  if (author) {
+    queryParams = `?author=${author}`;
+  }
+
   return (dispatch) => {
-    fetch('https://malins-wk17-project.herokuapp.com/books')
+    fetch('https://malins-wk17-project.herokuapp.com' + queryParams)
       .then(res => res.json()
       .then((books) => {
         dispatch(book.actions.setBookList(books))
-        console.log(books);
       })
     )
   }

@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import styled from 'styled-components';
-import { book } from '../reducers/Book';
+import styled from 'styled-components/macro';
+import { fetchBooks } from 'reducers/Book';
 
 const Form = styled.form`
   display: flex;
   flex-direction: column;
+  align-items: center;
   width: 300px;
 `;
 
@@ -14,7 +15,18 @@ const Input = styled.input`
   background-color: black;
   border: none;
   border-bottom: 2px solid white;
-  color: white;
+  width: 300px;
+  ::placeholder {
+    color: #e7e9eb;
+  }
+  :focus {
+    outline: none;
+    background-color: #2c2d26;
+    color: white;
+    ::placeholder {
+      color: white;
+    }
+  }
 `;
 
 const Button = styled.button`
@@ -32,20 +44,20 @@ export const SearchBar = () => {
   const [value, setValue] = useState('')
   const dispatch = useDispatch();
 
-  const onSearch = (event) => {
-    event.preventDefault()
-    setValue(event.target.value);
-    dispatch(book.actions.setBookList(value))
+  const search = (e) => {
+    e.preventDefault();
+    dispatch(fetchBooks(value));
   }
 
   return (
-    <Form onSubmit={onSearch}>
+    <Form onSubmit={search}>
       <Input
         type="text"
         placeholder="Search for books"
+        onChange={e => setValue(e.target.value)}
       ></Input>
       <Button
-        onClick={(e) => setValue(e.target.value)}
+        onClick={search}
       >
         Search
       </Button>
