@@ -20,7 +20,7 @@ export const fetchBooks = (author) => {
   }
 
   return (dispatch) => {
-    fetch('https://malins-wk17-project.herokuapp.com' + queryParams)
+    fetch('https://malins-wk17-project.herokuapp.com/books' + queryParams)
       .then(res => res.json()
       .then((books) => {
         dispatch(book.actions.setBookList(books))
