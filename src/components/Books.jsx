@@ -33,7 +33,7 @@ export const Books = () => {
 
   useEffect(() => {
     onFetchBooks()
-  }, [])
+  })
 
   return (
     <Container>
